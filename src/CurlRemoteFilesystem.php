@@ -2,10 +2,10 @@
 namespace ngyuki\ComposerCurlPlugin;
 
 use Composer\Composer;
-use Composer\Downloader\TransportException;
 use Composer\Util\RemoteFilesystem;
 use Composer\IO\IOInterface;
 use Composer\Config;
+use Composer\Downloader\TransportException;
 
 class CurlRemoteFilesystem extends RemoteFilesystem
 {
@@ -46,7 +46,6 @@ class CurlRemoteFilesystem extends RemoteFilesystem
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => true,
             CURLOPT_SSL_VERIFYPEER => false,
-            //CURLOPT_FAILONERROR => true,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_MAXREDIRS => 5,
             CURLOPT_USERAGENT => $userAgent,
@@ -92,7 +91,7 @@ class CurlRemoteFilesystem extends RemoteFilesystem
         $resp = curl_exec($this->curl);
 
         if ($resp === false) {
-            throw new \RuntimeException("Unable download \"$url\"");
+            throw new \RuntimeException("Unable download $url");
         }
 
         list ($header, $body) = explode("\r\n\r\n", $resp, 2);
@@ -105,7 +104,7 @@ class CurlRemoteFilesystem extends RemoteFilesystem
             } else {
                 $message = "Unknown error";
             }
-            $ex = new TransportException("Unable download \"$url\" ... $message");
+            $ex = new TransportException("Unable download $url ... $message");
             $ex->setHeaders($headers);
             $ex->setResponse($body);
             throw $ex;

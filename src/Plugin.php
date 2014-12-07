@@ -58,11 +58,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         $protocol = parse_url($url, PHP_URL_SCHEME);
 
         if ($host === 'packagist.org' && ($protocol === 'http' || $protocol === 'https')) {
-            //$orig = $event->getRemoteFilesystem();
             $event->setRemoteFilesystem($this->curl);
-            if ($this->io->isDebug()) {
-                $this->io->write("<info>[Curl]</info> Switch curl \"$url\"");
-            }
         }
     }
 }

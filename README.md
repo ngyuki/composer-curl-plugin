@@ -52,7 +52,7 @@ $ composer install
 Make composer home and install plugin
 
 ```console
-$ php misc/composer.php global require ngyuki/composer-curl-plugin:dev-master
+$ misc/composer.php global require ngyuki/composer-curl-plugin:dev-master
 ```
 
 Run tcpdump in other console
@@ -64,19 +64,19 @@ $ sudo tcpdump -nn 'host 87.98.253.214 and (tcp[tcpflags] & 255 == tcp-syn)'
 Install symfony
 
 ```console
-$ php misc/composer.php require symfony/symfony:\*
+$ misc/composer.php require symfony/symfony:\*
 ```
 
 Update without plugin
 
 ```console
 $ rm -fr cache/repo/
-$ php misc/composer.php update --dry-run --profile --no-plugins -vvv
+$ misc/composer.php update --dry-run --profile --no-plugins -vvv
 ```
 
 Update with plugin
 
 ```console
 $ rm -fr cache/repo/
-$ php misc/composer.php update --dry-run --profile -vvv
+$ misc/composer.php update --dry-run --profile -vvv
 ```

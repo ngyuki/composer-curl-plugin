@@ -1,11 +1,5 @@
 #!/usr/bin/env php
 <?php
-
-/*
- * php misc/composer.php global install
- * php misc/composer.php install --dry-run -vvv
- */
-
 error_reporting(-1);
 ini_set('display_errors', 1);
 ini_set('memory_limit', -1);
