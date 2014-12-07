@@ -55,10 +55,10 @@ Run composer install
 $ composer install
 ```
 
-Make composer home
+Make composer home and install plugin
 
 ```console
-$ php misc/composer.php global install
+$ php misc/composer.php global require ngyuki/composer-curl-plugin:dev-master
 ```
 
 Run tcpdump in other console
