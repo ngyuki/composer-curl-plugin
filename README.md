@@ -2,12 +2,6 @@
 
 ## Install
 
-Fix composer config
-
-```console
-$ composer config -g repositories.ngyuki/composer-curl-plugin vcs https://github.com/ngyuki/composer-curl-plugin.git
-```
-
 Install plugin 
 
 ```
@@ -25,7 +19,7 @@ $ composer require symfony/symfony:\*
 Update without plugin
 
 ```console
-$ rm -fr ~/.composer/cache/
+$ rm -fr ~/.composer/cache/repo/
 $ composer update --dry-run --profile --no-plugins
  :
 Memory usage: 92.4MB (peak: 111.41MB), time: 139.99s
@@ -34,7 +28,7 @@ Memory usage: 92.4MB (peak: 111.41MB), time: 139.99s
 Update with plugin
 
 ```console
-$ rm -fr ~/.composer/cache/
+$ rm -fr ~/.composer/cache/repo/
 $ composer update --dry-run --profile
  :
 Memory usage: 92.61MB (peak: 111.62MB), time: 67.21s
@@ -76,13 +70,13 @@ $ php misc/composer.php require symfony/symfony:\*
 Update without plugin
 
 ```console
-$ rm -fr cache/*
+$ rm -fr cache/repo/
 $ php misc/composer.php update --dry-run --profile --no-plugins -vvv
 ```
 
 Update with plugin
 
 ```console
-$ rm -fr cache/*
+$ rm -fr cache/repo/
 $ php misc/composer.php update --dry-run --profile -vvv
 ```
