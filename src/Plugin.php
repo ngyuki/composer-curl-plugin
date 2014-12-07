@@ -21,9 +21,9 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     protected $io;
 
     /**
-     * @var CurlRemoteFilesystem
+     * @var CurlClient
      */
-    protected $curl;
+    protected $curlClient;
 
     /**
      * {@inheritdoc}
@@ -32,11 +32,32 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     {
         $this->composer = $composer;
         $this->io = $io;
-        $this->curl = new CurlRemoteFilesystem($this->io);
+        $this->curlClient = new CurlClient(self::generateUserAgent());
 
         if ($this->io->isVerbose()) {
             $this->io->write("<info>[Curl]</info> plugin activate");
         }
+    }
+
+    /**
+     * @return string
+     * @see \Composer\Util\RemoteFilesystem::getOptionsForUrl()
+     */
+    public static function generateUserAgent()
+    {
+        $version  = curl_version();
+
+        $userAgent = sprintf('Composer/%s (%s; %s; PHP %s.%s.%s; Curl: %s)',
+            Composer::VERSION === '@package_version@' ? 'source' : Composer::VERSION,
+            php_uname('s'),
+            php_uname('r'),
+            PHP_MAJOR_VERSION,
+            PHP_MINOR_VERSION,
+            PHP_RELEASE_VERSION,
+            $version['version']
+        );
+
+        return $userAgent;
     }
 
     /**
@@ -58,7 +79,14 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         $protocol = parse_url($url, PHP_URL_SCHEME);
 
         if ($host === 'packagist.org' && ($protocol === 'http' || $protocol === 'https')) {
-            $event->setRemoteFilesystem($this->curl);
+            $orig = $event->getRemoteFilesystem();
+            $curl = new CurlRemoteFilesystem(
+                $this->curlClient,
+                $this->io,
+                $this->composer->getConfig(),
+                $orig->getOptions()
+            );
+            $event->setRemoteFilesystem($curl);
         }
     }
 }
