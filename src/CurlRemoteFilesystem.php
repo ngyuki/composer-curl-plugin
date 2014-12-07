@@ -1,6 +1,7 @@
 <?php
 namespace ngyuki\ComposerCurlPlugin;
 
+use Composer\Composer;
 use Composer\Downloader\TransportException;
 use Composer\Util\RemoteFilesystem;
 use Composer\IO\IOInterface;
@@ -28,6 +29,19 @@ class CurlRemoteFilesystem extends RemoteFilesystem
 
         $this->curl = curl_init();
 
+        $version  = curl_version();
+
+        // @see \Composer\Util\RemoteFilesystem::getOptionsForUrl()
+        $userAgent = sprintf('Composer/%s (%s; %s; PHP %s.%s.%s; Curl: %s)',
+            Composer::VERSION === '@package_version@' ? 'source' : Composer::VERSION,
+            php_uname('s'),
+            php_uname('r'),
+            PHP_MAJOR_VERSION,
+            PHP_MINOR_VERSION,
+            PHP_RELEASE_VERSION,
+            $version['version']
+        );
+
         $options = array(
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => true,
@@ -35,7 +49,7 @@ class CurlRemoteFilesystem extends RemoteFilesystem
             //CURLOPT_FAILONERROR => true,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_MAXREDIRS => 5,
-            CURLOPT_USERAGENT => "composer",
+            CURLOPT_USERAGENT => $userAgent,
             CURLOPT_ENCODING => "",
         );
 
