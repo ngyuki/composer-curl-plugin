@@ -1,0 +1,5 @@
+{
+    "repositories": [
+        { "type": "vcs", "url": "file://../.git" }
+    ]
+}

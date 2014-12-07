@@ -1,0 +1,5 @@
+{
+    "require": {
+        "ngyuki/composer-curl-plugin": "dev-master"
+    }
+}

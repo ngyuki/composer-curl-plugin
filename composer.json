@@ -1,0 +1,25 @@
+{
+    "name": "ngyuki/composer-curl-plugin",
+    "description": "composer-curl-plugin",
+    "type": "composer-plugin",
+    "keywords": [ "composer" ],
+    "homepage": "https://github.com/ngyuki/composer-curl-plugin",
+    "license": "MIT",
+    "authors": [
+        { "name": "ngyuki", "email": "ngyuki.ts@gmail.com" }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ngyuki\\ComposerCurlPlugin\\": "src/"
+        }
+    },
+    "extra": {
+        "class": "ngyuki\\ComposerCurlPlugin\\Plugin"
+    },
+    "require": {
+        "composer-plugin-api": "*"
+    },
+    "require-dev": {
+        "composer/composer": "@dev"
+    }
+}
