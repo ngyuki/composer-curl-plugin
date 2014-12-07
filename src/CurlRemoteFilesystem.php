@@ -35,7 +35,8 @@ class CurlRemoteFilesystem extends RemoteFilesystem
             //CURLOPT_FAILONERROR => true,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_MAXREDIRS => 5,
-            //CURLOPT_USERAGENT => "composer",
+            CURLOPT_USERAGENT => "composer",
+            CURLOPT_ENCODING => "",
         );
 
         curl_setopt_array($this->curl, $options);
