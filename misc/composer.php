@@ -5,9 +5,7 @@ ini_set('display_errors', 1);
 ini_set('memory_limit', -1);
 
 $home = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'home';
-$cache = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'cache';
 putenv("COMPOSER_HOME=$home");
-putenv("COMPOSER_CACHE_DIR=$cache");
 chdir(__DIR__);
 
 use Composer\Console\Application;

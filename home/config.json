@@ -1,5 +1,8 @@
 {
     "repositories": [
         { "type": "vcs", "url": "file://../.git" }
-    ]
+    ],
+    "config": {
+        "cache-repo-dir": "{$home}/../cache/repo"
+    }
 }
