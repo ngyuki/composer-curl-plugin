@@ -26,6 +26,11 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     protected $curlClient;
 
     /**
+     * @var array
+     */
+    protected $hosts = array('packagist.org');
+
+    /**
      * {@inheritdoc}
      */
     public function activate(Composer $composer, IOInterface $io)
@@ -36,6 +41,12 @@ class Plugin implements PluginInterface, EventSubscriberInterface
 
         if ($this->io->isVerbose()) {
             $this->io->write("<info>[Curl]</info> plugin activate");
+        }
+
+        $pluginConfig = $this->composer->getConfig()->get('curl-plugin');
+
+        if (isset($pluginConfig['hosts']) && is_array($pluginConfig['hosts'])) {
+            $this->hosts = array_merge($this->hosts, $pluginConfig['hosts']);
         }
     }
 
@@ -78,7 +89,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         $host = parse_url($url, PHP_URL_HOST);
         $protocol = parse_url($url, PHP_URL_SCHEME);
 
-        if ($host === 'packagist.org' && ($protocol === 'http' || $protocol === 'https')) {
+        if (in_array($host, $this->hosts, true) && ($protocol === 'http' || $protocol === 'https')) {
             $orig = $event->getRemoteFilesystem();
             $curl = new CurlRemoteFilesystem(
                 $this->curlClient,
