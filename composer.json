@@ -17,7 +17,7 @@
         "class": "ngyuki\\ComposerCurlPlugin\\Plugin"
     },
     "require": {
-        "composer-plugin-api": "*"
+        "composer-plugin-api": "^1.0"
     },
     "require-dev": {
         "composer/composer": "@dev"
